@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tỏ tình 💖</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-top: 80px;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        #yes {
+            background-color: #ff4d88;
+            color: white;
+            left: 30%;
+            top: 60%;
+        }
+
+        #no {
+            background-color: white;
+            color: black;
+            left: 55%;
+            top: 60%;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: floatUp 2s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Em có đồng ý làm người yêu anh không? 🥺💖</h1>
+
+    <button id="yes" class="btn">Có 💕</button>
+    <button id="no" class="btn">Không 😭</button>
+
+    <script>
+        const yesBtn = document.getElementById("yes");
+        const noBtn = document.getElementById("no");
+
+        function yesClick() {
+            document.body.innerHTML = `
+                <h1 style="color:white; margin-top:100px;">
+                    Yayyyy 💖 Anh biết mà 😎💞
+                </h1>
+            `;
+        }
+
+        yesBtn.addEventListener("click", yesClick);
+        yesBtn.addEventListener("touchstart", yesClick);
+
+        function moveButton(e) {
+            e.preventDefault();
+
+            let maxX = window.innerWidth - noBtn.offsetWidth;
+            let maxY = window.innerHeight - noBtn.offsetHeight;
+
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+
+        noBtn.addEventListener("touchstart", moveButton);
+        noBtn.addEventListener("mouseover", moveButton);
+
+        function createHeart(x, y) {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "💖";
+
+            heart.style.left = x + "px";
+            heart.style.top = y + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        document.addEventListener("touchstart", function(e) {
+            let touch = e.touches[0];
+            createHeart(touch.clientX, touch.clientY);
+        });
+
+        document.addEventListener("click", function(e) {
+            createHeart(e.clientX, e.clientY);
+        });
+    </script>
+
+</body>
+</html>
